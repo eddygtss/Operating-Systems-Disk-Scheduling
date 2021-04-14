@@ -21,7 +21,6 @@ def scan(head, req):
 
     for i in range(0, len(req)):
 
-        j = 0
         dif_1 = int(req[i]) - current
         for j in range(len(req)):
             dif_2 = int(req[j]) - current
