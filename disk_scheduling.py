@@ -23,25 +23,17 @@ def scan(head, req):
 
         j = 0
         dif_1 = int(req[i]) - current
-        #for j in range(len(req)):
-        while True:
-
+        for j in range(len(req)):
             dif_2 = int(req[j]) - current
 
             if abs(dif_2) <= abs(dif_1) and dif_2 > 0 and abs(dif_2) + abs(dif_1) != 0:
                 next_pos = int(req[j])
                 dif_1 = dif_2
-                j += 1
             elif dif_2 > 0 and abs(dif_1) == 0:
                 next_pos = int(req[j])
                 dif_1 = dif_2
-                j += 1
             elif current == next_pos and j == (len(req) - 1):
                 dif_1 = 0
-                j += 1
-
-            if j == len(req) - 1:
-                break
 
         print(str(current) + '->' + str(next_pos))
         current = next_pos
