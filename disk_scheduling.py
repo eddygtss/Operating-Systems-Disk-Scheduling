@@ -19,10 +19,10 @@ def scan(head, req):
     current = head
     next_pos = 0
 
-    for i in range(0, len(req)):
+    for i in range(size):
 
         dif_1 = int(req[i]) - current
-        for j in range(len(req)):
+        for j in range(size):
             dif_2 = int(req[j]) - current
 
             if abs(dif_2) <= abs(dif_1) and dif_2 > 0 and abs(dif_2) + abs(dif_1) != 0:
@@ -56,7 +56,7 @@ if __name__ == '__main__':
     algorithm = args.algo
     head_pos = args.head_pos
 
-    size = len(algorithm)
+    size = len(request)
     cylinders = 200
 
     if algorithm.lower() == 'fcfs':
