@@ -5,39 +5,47 @@ parser.add_argument('--requests', type=str, help='comma-delimited list of intege
 parser.add_argument('--head_pos', type=int, help='the starting position of the head')
 parser.add_argument('--algo', type=str, help='type of algorithm to use. Acceptable values are FCFS, SCAN, and CSCAN')
 args = parser.parse_args()
-global size, cylinders
+global req_size, cylinders
 
 
 def fcfs(head, req):
     current = head
     for position in req:
-        print(str(current) + '->' + position)
+        print(str(current) + '->' + str(position))
         current = position
 
 
 def scan(head, req):
     current = head
     next_pos = 0
+    count = 0
+    list_req = []
 
     for i in range(size):
+        list_req.append(int(req[i]))
 
-        dif_1 = int(req[i]) - current
-        for j in range(size):
-            dif_2 = int(req[j]) - current
+    list_req.sort()
 
-            if abs(dif_2) <= abs(dif_1) and dif_2 > 0 and abs(dif_2) + abs(dif_1) != 0:
-                next_pos = int(req[j])
-                dif_1 = dif_2
-            elif dif_2 > 0 and abs(dif_1) == 0:
-                next_pos = int(req[j])
-                dif_1 = dif_2
-            elif current == next_pos and j == (len(req) - 1):
-                dif_1 = 0
+    while True:
 
-        print(str(current) + '->' + str(next_pos))
-        current = next_pos
+        if list_req[count] < head and count == 0:
+            temp = list_req[count]
+            list_req.pop(count)
+            list_req.append(temp)
+            continue
+        elif list_req[count] < list_req[size - 1] and count > 0:
+            temp = list_req[count]
+            list_req.pop(count)
+            list_req.append(temp)
+        else:
+            next_pos = list_req[count]
+            count += 1
+            print(str(current) + '->' + str(next_pos))
+            current = next_pos
+        if count == size:
+            break
 
-    print(req)
+    print(list_req)
 
 
 def cscan(head, req):
@@ -58,6 +66,9 @@ if __name__ == '__main__':
 
     size = len(request)
     cylinders = 200
+
+    for i in range(size):
+        request[i] = int(request[i])
 
     if algorithm.lower() == 'fcfs':
         fcfs(head_pos, request)
