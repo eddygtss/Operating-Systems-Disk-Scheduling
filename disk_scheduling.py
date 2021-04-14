@@ -24,6 +24,7 @@ def scan(head, req):
     for j in range(size):
         list_req.append(int(req[j]))
 
+    list_req.append(cylinders - 1)
     list_req.sort()
 
     while True:
@@ -33,7 +34,7 @@ def scan(head, req):
             list_req.pop(count)
             list_req.append(temp)
             continue
-        elif list_req[count] < list_req[size - 1] and count > 0:
+        elif list_req[count] < list_req[size] and count > 0:
             temp = list_req[count]
             list_req.pop(count)
             list_req.append(temp)
@@ -42,10 +43,8 @@ def scan(head, req):
             count += 1
             print(str(current) + '->' + str(next_pos))
             current = next_pos
-        if count == size:
+        if count == size + 1:
             break
-
-    print(list_req)
 
 
 def cscan(head, req):
@@ -57,6 +56,8 @@ def cscan(head, req):
     for j in range(size):
         list_req.append(int(req[j]))
 
+    list_req.append(cylinders - 1)
+    list_req.append(0)
     list_req.sort()
 
     while True:
@@ -66,16 +67,12 @@ def cscan(head, req):
             list_req.pop(count)
             list_req.append(temp)
             continue
-        #elif list_req[count] < list_req[size - 1] and count > 0:
-            #temp = list_req[count]
-            #list_req.pop(count)
-            #list_req.append(temp)
         else:
             next_pos = list_req[count]
             count += 1
             print(str(current) + '->' + str(next_pos))
             current = next_pos
-        if count == size:
+        if count == size + 2:
             break
 
 
@@ -84,12 +81,10 @@ if __name__ == '__main__':
     algorithm = args.algo
     head_pos = args.head_pos
     cylinders = 200
+    size = len(request)
 
     for i in range(len(request)):
         request[i] = int(request[i])
-    request.append(cylinders - 1)
-
-    size = len(request)
 
     if algorithm.lower() == 'fcfs':
         fcfs(head_pos, request)
